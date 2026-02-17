@@ -1,0 +1,400 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2113.6">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+    span.s1 {font: 12.0px 'Apple Color Emoji'}
+    span.s2 {font: 12.0px 'Lucida Grande'}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!doctype html&gt;</p>
+<p class="p1">&lt;html lang="en"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta charset="utf-8" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="viewport" content="width=device-width,initial-scale=1" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;title&gt;Impromptu Speech Topic Generator&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>:root { --bg:#0b0f17; --card:#111827; --muted:#9ca3af; --text:#e5e7eb; --accent:#60a5fa; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>* { box-sizing:border-box; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>body {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background:linear-gradient(180deg,#05070c, #0b0f17); color:var(--text);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>header {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>position: sticky; top: 0; z-index: 10;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>backdrop-filter: blur(10px);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(11,15,23,0.75);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-bottom: 1px solid rgba(255,255,255,0.08);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.wrap { max-width: 980px; margin: 0 auto; padding: 16px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>h1 { font-size: 18px; margin: 0 0 4px; letter-spacing: .2px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.sub { color: var(--muted); font-size: 13px; margin: 0 0 10px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.row { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.btn, select, input[type="number"] {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background:#0f172a; color:var(--text); border:1px solid rgba(255,255,255,.12);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding:10px 12px; border-radius:12px; font-size:14px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.btn { cursor:pointer; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.btn:hover { border-color: rgba(96,165,250,.6); }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.btn.primary { background: rgba(96,165,250,.15); border-color: rgba(96,165,250,.55); }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.pill { padding:6px 10px; border-radius:999px; font-size:12px; border:1px solid rgba(255,255,255,.12); color:var(--muted); }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.timer { font-variant-numeric: tabular-nums; color: var(--accent); }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>main .wrap { padding-top: 14px; padding-bottom: 28px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.grid { display:grid; grid-template-columns: 1fr; gap: 12px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>@media (min-width: 860px) { .grid { grid-template-columns: 1fr 1fr; } }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.card {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(17,24,39,0.85);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(255,255,255,0.10);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 16px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 14px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>box-shadow: 0 10px 40px rgba(0,0,0,.25);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.meta { display:flex; gap:8px; flex-wrap:wrap; margin-bottom: 10px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.topic { font-size: 16px; line-height: 1.35; margin: 0; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.tag { font-size: 12px; padding: 4px 8px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.12); color: var(--muted); }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.tag.accent { color: #bfdbfe; border-color: rgba(96,165,250,.45); background: rgba(96,165,250,.12); }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.muted { color: var(--muted); font-size: 13px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>textarea {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>width: 100%; min-height: 140px; resize: vertical;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background:#0f172a; color:var(--text); border:1px solid rgba(255,255,255,.12);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding:12px; border-radius:12px; font-size:13px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.divider { height:1px; background: rgba(255,255,255,0.08); margin: 14px 0; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p1">&lt;header&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="wrap"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h1&gt;Impromptu Speech Topic Generator&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;p class="sub"&gt;Scroll topics like a feed. Shuffle, filter, run a timer, and paste your own topic pack.&lt;/p&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="row"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;button class="btn primary" id="btnShuffle"&gt;Shuffle&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;button class="btn" id="btnPrev"&gt;Prev&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;button class="btn" id="btnNext"&gt;Next&lt;/button&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;span class="pill"&gt;Current: &lt;strong id="currentIndex"&gt;1&lt;/strong&gt;/&lt;span id="totalCount"&gt;0&lt;/span&gt;&lt;/span&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;label class="pill"&gt;Difficulty:</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;select id="difficulty"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;option value="all"&gt;All&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;option value="easy"&gt;Easy&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;option value="medium"&gt;Medium&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;option value="hard"&gt;Hard&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/select&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/label&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;label class="pill"&gt;Category:</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;select id="category"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;option value="all"&gt;All&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/select&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/label&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;label class="pill"&gt;Timer (sec):</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="number" id="timerSec" min="10" step="10" value="60" style="width:90px;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;button class="btn" id="btnTimer"&gt;Start Timer&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;span class="pill"&gt;<span class="s1">⏱</span> &lt;span class="timer" id="timerReadout"&gt;00:00&lt;/span&gt;&lt;/span&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;button class="btn" id="btnAuto"&gt;Auto-advance: Off&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p1">&lt;/header&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;main&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="wrap"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="grid" id="feed"&gt;&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="divider"&gt;&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="meta"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;span class="tag accent"&gt;Customize your topics&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;span class="tag"&gt;One topic per line&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;p class="muted"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>Paste your own topics below. You can optionally add &lt;strong&gt;[difficulty]&lt;/strong&gt; and &lt;strong&gt;{category}&lt;/strong&gt; at the end.</p>
+<p class="p1"><span class="Apple-converted-space">        </span>Example: &lt;em&gt;“Is social media good for society? [medium] {society}”&lt;/em&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;textarea id="topicInput" placeholder="Paste your topics here..."&gt;&lt;/textarea&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="row" style="margin-top:10px;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="btn primary" id="btnSaveTopics"&gt;Save Topic Pack&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="btn" id="btnReset"&gt;Reset to Default&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;span class="muted" id="saveStatus"&gt;&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p1">&lt;/main&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>// ---------- Default Topics (edit these anytime) ----------</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const DEFAULT_TOPICS = [</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ text: "A habit that changed my life.", difficulty: "easy", category: "personal" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ text: "Should AI be regulated like medicines?", difficulty: "medium", category: "tech" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ text: "The biggest mistake people make when trying to be productive.", difficulty: "easy", category: "productivity" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ text: "Is ambition a blessing or a curse?", difficulty: "medium", category: "mindset" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ text: "What does ‘success’ actually mean to you?", difficulty: "easy", category: "personal" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ text: "Does hard work matter more than luck?", difficulty: "medium", category: "mindset" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ text: "One unpopular opinion you hold (and why).", difficulty: "hard", category: "debate" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ text: "Should schools teach financial literacy instead of exams?", difficulty: "medium", category: "society" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ text: "A time you failed and what it taught you.", difficulty: "easy", category: "personal" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ text: "Is social media making us lonelier?", difficulty: "medium", category: "society" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ text: "What’s one thing you’d change about modern work culture?", difficulty: "hard", category: "work" },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ text: "If you could build one app for India, what would it solve?", difficulty: "hard", category: "startup" }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>// ---------- Storage ----------</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const STORAGE_KEY = "impromptu_topics_v1";</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>function loadTopics() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const raw = localStorage.getItem(STORAGE_KEY);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (!raw) return DEFAULT_TOPICS.slice();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const parsed = JSON.parse(raw);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (Array.isArray(parsed) &amp;&amp; parsed.length) return parsed;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>} catch {}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>return DEFAULT_TOPICS.slice();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>function saveTopics(topics) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>localStorage.setItem(STORAGE_KEY, JSON.stringify(topics));</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>// ---------- Parsing custom lines ----------</p>
+<p class="p1"><span class="Apple-converted-space">  </span>function parseLinesToTopics(lines) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const topics = [];</p>
+<p class="p1"><span class="Apple-converted-space">    </span>for (const line of lines) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const trimmed = line.trim();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (!trimmed) continue;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>// Optional: [easy|medium|hard] and {category}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const diffMatch = trimmed.match(/\[(easy|medium|hard)\]\s*$/i);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const catMatch = trimmed.match(/\{([^}]+)\}\s*$/);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>let text = trimmed;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>let difficulty = "medium";</p>
+<p class="p1"><span class="Apple-converted-space">      </span>let category = "general";</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (diffMatch) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>difficulty = diffMatch[1].toLowerCase();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>text = text.replace(/\[(easy|medium|hard)\]\s*$/i, "").trim();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (catMatch) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>category = catMatch[1].trim().toLowerCase();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>text = text.replace(/\{([^}]+)\}\s*$/, "").trim();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>topics.push({ text, difficulty, category });</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>return topics;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>// ---------- App State ----------</p>
+<p class="p1"><span class="Apple-converted-space">  </span>let ALL_TOPICS = loadTopics();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>let FILTERED = [];</p>
+<p class="p1"><span class="Apple-converted-space">  </span>let current = 0;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>const feedEl = document.getElementById("feed");</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const currentIndexEl = document.getElementById("currentIndex");</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const totalCountEl = document.getElementById("totalCount");</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const difficultyEl = document.getElementById("difficulty");</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const categoryEl = document.getElementById("category");</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>// Timer state</p>
+<p class="p1"><span class="Apple-converted-space">  </span>let timerId = null;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>let remaining = 0;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const timerReadout = document.getElementById("timerReadout");</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const timerSecEl = document.getElementById("timerSec");</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const btnTimer = document.getElementById("btnTimer");</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>// Auto-advance</p>
+<p class="p1"><span class="Apple-converted-space">  </span>let autoId = null;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const btnAuto = document.getElementById("btnAuto");</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>function formatMMSS(sec) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const m = String(Math.floor(sec / 60)).padStart(2,"0");</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const s = String(sec % 60).padStart(2,"0");</p>
+<p class="p1"><span class="Apple-converted-space">    </span>return `${m}:${s}`;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>function buildCategoryOptions() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const cats = Array.from(new Set(ALL_TOPICS.map(t =&gt; t.category))).sort();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>categoryEl.innerHTML = `&lt;option value="all"&gt;All&lt;/option&gt;` + cats.map(c =&gt; `&lt;option value="${c}"&gt;${c}&lt;/option&gt;`).join("");</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>function applyFilters() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const diff = difficultyEl.value;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const cat = categoryEl.value;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>FILTERED = ALL_TOPICS.filter(t =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const okDiff = (diff === "all") || (t.difficulty === diff);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const okCat = (cat === "all") || (t.category === cat);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return okDiff &amp;&amp; okCat;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (FILTERED.length === 0) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>FILTERED = [{ text: "No topics match your filters. Change filters or add topics.", difficulty: "easy", category: "system" }];</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>current = Math.min(current, FILTERED.length - 1);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>render();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>renderFeed();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>function render() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>currentIndexEl.textContent = (current + 1);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>totalCountEl.textContent = FILTERED.length;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>function renderFeed() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>feedEl.innerHTML = "";</p>
+<p class="p1"><span class="Apple-converted-space">    </span>FILTERED.forEach((t, idx) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const card = document.createElement("div");</p>
+<p class="p1"><span class="Apple-converted-space">      </span>card.className = "card";</p>
+<p class="p1"><span class="Apple-converted-space">      </span>card.dataset.idx = idx;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>card.innerHTML = `</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="meta"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tag accent"&gt;${t.difficulty}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tag"&gt;${t.category}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>${idx === current ? `&lt;span class="tag"&gt;<span class="s2">▶</span> current&lt;/span&gt;` : ``}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="topic"&gt;${escapeHtml(t.text)}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>`;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>card.addEventListener("click", () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>current = idx;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>render();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>renderFeed();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Scroll card into view nicely</p>
+<p class="p1"><span class="Apple-converted-space">        </span>card.scrollIntoView({ behavior: "smooth", block: "center" });</p>
+<p class="p1"><span class="Apple-converted-space">      </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>feedEl.appendChild(card);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// Highlight current card by scrolling to it once (light touch)</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const currentCard = feedEl.querySelector(`[data-idx="${current}"]`);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (currentCard) currentCard.scrollIntoView({ behavior: "smooth", block: "center" });</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>function escapeHtml(str) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>return str.replace(/[&amp;&lt;&gt;"']/g, (m) =&gt; ({</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"&amp;":"&amp;amp;","&lt;":"&amp;lt;","&gt;":"&amp;gt;",'"':"&amp;quot;","'":"&amp;#39;"</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}[m]));</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>function nextTopic() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>current = (current + 1) % FILTERED.length;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>render(); renderFeed();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>function prevTopic() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>current = (current - 1 + FILTERED.length) % FILTERED.length;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>render(); renderFeed();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>function shuffle() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>// Fisher-Yates</p>
+<p class="p1"><span class="Apple-converted-space">    </span>for (let i = ALL_TOPICS.length - 1; i &gt; 0; i--) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const j = Math.floor(Math.random() * (i + 1));</p>
+<p class="p1"><span class="Apple-converted-space">      </span>[ALL_TOPICS[i], ALL_TOPICS[j]] = [ALL_TOPICS[j], ALL_TOPICS[i]];</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>applyFilters();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>function stopTimer() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (timerId) clearInterval(timerId);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>timerId = null;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>remaining = 0;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>timerReadout.textContent = "00:00";</p>
+<p class="p1"><span class="Apple-converted-space">    </span>btnTimer.textContent = "Start Timer";</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>function startTimer() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>stopTimer();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>remaining = Math.max(1, parseInt(timerSecEl.value || "60", 10));</p>
+<p class="p1"><span class="Apple-converted-space">    </span>timerReadout.textContent = formatMMSS(remaining);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>btnTimer.textContent = "Stop Timer";</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>timerId = setInterval(() =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>remaining -= 1;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>timerReadout.textContent = formatMMSS(Math.max(0, remaining));</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (remaining &lt;= 0) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>stopTimer();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>// small nudge to move on</p>
+<p class="p1"><span class="Apple-converted-space">        </span>nextTopic();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}, 1000);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>function toggleAutoAdvance() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (autoId) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>clearInterval(autoId);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>autoId = null;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>btnAuto.textContent = "Auto-advance: Off";</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const intervalSec = Math.max(10, parseInt(timerSecEl.value || "60", 10));</p>
+<p class="p1"><span class="Apple-converted-space">    </span>btnAuto.textContent = `Auto-advance: On (${intervalSec}s)`;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>autoId = setInterval(() =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>nextTopic();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}, intervalSec * 1000);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>// ---------- Wire up controls ----------</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById("btnNext").addEventListener("click", nextTopic);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById("btnPrev").addEventListener("click", prevTopic);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById("btnShuffle").addEventListener("click", shuffle);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>difficultyEl.addEventListener("change", applyFilters);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>categoryEl.addEventListener("change", applyFilters);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>btnTimer.addEventListener("click", () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (timerId) stopTimer();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>else startTimer();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>btnAuto.addEventListener("click", toggleAutoAdvance);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>// Save custom topics</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const topicInput = document.getElementById("topicInput");</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const saveStatus = document.getElementById("saveStatus");</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById("btnSaveTopics").addEventListener("click", () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const lines = topicInput.value.split("\n");</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const parsed = parseLinesToTopics(lines);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (!parsed.length) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>saveStatus.textContent = "Please paste at least 1 topic.";</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>ALL_TOPICS = parsed;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>saveTopics(ALL_TOPICS);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>buildCategoryOptions();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>applyFilters();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>saveStatus.textContent = `Saved ${ALL_TOPICS.length} topics locally on this device.`;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById("btnReset").addEventListener("click", () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>localStorage.removeItem(STORAGE_KEY);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>ALL_TOPICS = DEFAULT_TOPICS.slice();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>topicInput.value = "";</p>
+<p class="p1"><span class="Apple-converted-space">    </span>saveStatus.textContent = "Reset to default topics.";</p>
+<p class="p1"><span class="Apple-converted-space">    </span>buildCategoryOptions();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>applyFilters();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>// ---------- Init ----------</p>
+<p class="p1"><span class="Apple-converted-space">  </span>buildCategoryOptions();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>applyFilters();</p>
+<p class="p1">&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
