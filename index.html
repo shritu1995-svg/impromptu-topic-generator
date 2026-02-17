@@ -1,0 +1,449 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2113.6">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #000000; -webkit-text-stroke: #000000}
+    span.s1 {font-kerning: none}
+    span.s2 {font: 12.0px 'Apple Color Emoji'; font-kerning: none}
+    span.s3 {font: 12.0px 'Lucida Grande'; font-kerning: none}
+  </style>
+</head>
+<body>
+<p class="p1"><span class="s1">&lt;!doctype html&gt;</span></p>
+<p class="p1"><span class="s1">&lt;html lang="en"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;head&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;meta charset="utf-8" /&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;meta name="viewport" content="width=device-width,initial-scale=1" /&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;title&gt;Impromptu Speech Topic Generator&lt;/title&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;style&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>:root { --bg:#0b0f17; --card:#111827; --muted:#9ca3af; --text:#e5e7eb; --accent:#60a5fa; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>* { box-sizing:border-box; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>body {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background:linear-gradient(180deg,#05070c, #0b0f17); color:var(--text);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>header {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>position: sticky; top: 0; z-index: 10;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>backdrop-filter: blur(10px);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background: rgba(11,15,23,0.75);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border-bottom: 1px solid rgba(255,255,255,0.08);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.wrap { max-width: 980px; margin: 0 auto; padding: 16px; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>h1 { font-size: 18px; margin: 0 0 4px; letter-spacing: .2px; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.sub { color: var(--muted); font-size: 13px; margin: 0 0 10px; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.row { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.btn, select, input[type="number"] {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background:#0f172a; color:var(--text); border:1px solid rgba(255,255,255,.12);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>padding:10px 12px; border-radius:12px; font-size:14px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.btn { cursor:pointer; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.btn:hover { border-color: rgba(96,165,250,.6); }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.btn.primary { background: rgba(96,165,250,.15); border-color: rgba(96,165,250,.55); }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.pill { padding:6px 10px; border-radius:999px; font-size:12px; border:1px solid rgba(255,255,255,.12); color:var(--muted); }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.timer { font-variant-numeric: tabular-nums; color: var(--accent); }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>main .wrap { padding-top: 14px; padding-bottom: 28px; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.grid { display:grid; grid-template-columns: 1fr; gap: 12px; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>@media (min-width: 860px) { .grid { grid-template-columns: 1fr 1fr; } }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.card {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background: rgba(17,24,39,0.85);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(255,255,255,0.10);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border-radius: 16px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>padding: 14px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>box-shadow: 0 10px 40px rgba(0,0,0,.25);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.meta { display:flex; gap:8px; flex-wrap:wrap; margin-bottom: 10px; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.topic { font-size: 16px; line-height: 1.35; margin: 0; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.tag { font-size: 12px; padding: 4px 8px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.12); color: var(--muted); }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.tag.accent { color: #bfdbfe; border-color: rgba(96,165,250,.45); background: rgba(96,165,250,.12); }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.muted { color: var(--muted); font-size: 13px; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>textarea {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>width: 100%; min-height: 140px; resize: vertical;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background:#0f172a; color:var(--text); border:1px solid rgba(255,255,255,.12);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>padding:12px; border-radius:12px; font-size:13px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.divider { height:1px; background: rgba(255,255,255,0.08); margin: 14px 0; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/head&gt;</span></p>
+<p class="p1"><span class="s1">&lt;body&gt;</span></p>
+<p class="p1"><span class="s1">&lt;header&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;div class="wrap"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;h1&gt;Impromptu Speech Topic Generator&lt;/h1&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;p class="sub"&gt;Scroll topics like a feed. Shuffle, filter, run a timer, and paste your own topic pack.&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="row"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;button class="btn primary" id="btnShuffle"&gt;Shuffle&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;button class="btn" id="btnPrev"&gt;Prev&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;button class="btn" id="btnNext"&gt;Next&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;span class="pill"&gt;Current: &lt;strong id="currentIndex"&gt;1&lt;/strong&gt;/&lt;span id="totalCount"&gt;0&lt;/span&gt;&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;label class="pill"&gt;Difficulty:</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;select id="difficulty"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;option value="all"&gt;All&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;option value="easy"&gt;Easy&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;option value="medium"&gt;Medium&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;option value="hard"&gt;Hard&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/select&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;label class="pill"&gt;Category:</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;select id="category"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;option value="all"&gt;All&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/select&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;label class="pill"&gt;Timer (sec):</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;input type="number" id="timerSec" min="10" step="10" value="60" style="width:90px;"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;button class="btn" id="btnTimer"&gt;Start Timer&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;span class="pill"&gt;</span><span class="s2">⏱</span><span class="s1"> &lt;span class="timer" id="timerReadout"&gt;00:00&lt;/span&gt;&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;button class="btn" id="btnAuto"&gt;Auto-advance: Off&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/header&gt;</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1">&lt;main&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;div class="wrap"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="grid" id="feed"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="divider"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="card"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="meta"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;span class="tag accent"&gt;Customize your topics&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;span class="tag"&gt;One topic per line&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;p class="muted"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>Paste your own topics below. You can optionally add &lt;strong&gt;[difficulty]&lt;/strong&gt; and &lt;strong&gt;{category}&lt;/strong&gt; at the end.</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>Example: &lt;em&gt;“Is social media good for society? [medium] {society}”&lt;/em&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;textarea id="topicInput" placeholder="Paste your topics here..."&gt;&lt;/textarea&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="row" style="margin-top:10px;"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;button class="btn primary" id="btnSaveTopics"&gt;Save Topic Pack&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;button class="btn" id="btnReset"&gt;Reset to Default&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;span class="muted" id="saveStatus"&gt;&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/main&gt;</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1">&lt;script&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>// ---------- Default Topics (edit these anytime) ----------</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const DEFAULT_TOPICS = [</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>{ text: "A habit that changed my life.", difficulty: "easy", category: "personal" },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>{ text: "Should AI be regulated like medicines?", difficulty: "medium", category: "tech" },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>{ text: "The biggest mistake people make when trying to be productive.", difficulty: "easy", category: "productivity" },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>{ text: "Is ambition a blessing or a curse?", difficulty: "medium", category: "mindset" },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>{ text: "What does ‘success’ actually mean to you?", difficulty: "easy", category: "personal" },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>{ text: "Does hard work matter more than luck?", difficulty: "medium", category: "mindset" },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>{ text: "One unpopular opinion you hold (and why).", difficulty: "hard", category: "debate" },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>{ text: "Should schools teach financial literacy instead of exams?", difficulty: "medium", category: "society" },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>{ text: "A time you failed and what it taught you.", difficulty: "easy", category: "personal" },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>{ text: "Is social media making us lonelier?", difficulty: "medium", category: "society" },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>{ text: "What’s one thing you’d change about modern work culture?", difficulty: "hard", category: "work" },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>{ text: "If you could build one app for India, what would it solve?", difficulty: "hard", category: "startup" }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>];</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>// ---------- Storage ----------</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const STORAGE_KEY = "impromptu_topics_v1";</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>function loadTopics() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const raw = localStorage.getItem(STORAGE_KEY);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>if (!raw) return DEFAULT_TOPICS.slice();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>try {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const parsed = JSON.parse(raw);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>if (Array.isArray(parsed) &amp;&amp; parsed.length) return parsed;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>} catch {}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>return DEFAULT_TOPICS.slice();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>function saveTopics(topics) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>localStorage.setItem(STORAGE_KEY, JSON.stringify(topics));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>// ---------- Parsing custom lines ----------</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>function parseLinesToTopics(lines) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const topics = [];</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>for (const line of lines) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const trimmed = line.trim();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>if (!trimmed) continue;</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>// Optional: [easy|medium|hard] and {category}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const diffMatch = trimmed.match(/\[(easy|medium|hard)\]\s*$/i);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const catMatch = trimmed.match(/\{([^}]+)\}\s*$/);</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>let text = trimmed;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>let difficulty = "medium";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>let category = "general";</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>if (diffMatch) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>difficulty = diffMatch[1].toLowerCase();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>text = text.replace(/\[(easy|medium|hard)\]\s*$/i, "").trim();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>}</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>if (catMatch) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>category = catMatch[1].trim().toLowerCase();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>text = text.replace(/\{([^}]+)\}\s*$/, "").trim();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>}</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>topics.push({ text, difficulty, category });</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>return topics;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>// ---------- App State ----------</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>let ALL_TOPICS = loadTopics();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>let FILTERED = [];</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>let current = 0;</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const feedEl = document.getElementById("feed");</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const currentIndexEl = document.getElementById("currentIndex");</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const totalCountEl = document.getElementById("totalCount");</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const difficultyEl = document.getElementById("difficulty");</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const categoryEl = document.getElementById("category");</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>// Timer state</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>let timerId = null;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>let remaining = 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const timerReadout = document.getElementById("timerReadout");</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const timerSecEl = document.getElementById("timerSec");</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const btnTimer = document.getElementById("btnTimer");</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>// Auto-advance</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>let autoId = null;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const btnAuto = document.getElementById("btnAuto");</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>function formatMMSS(sec) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const m = String(Math.floor(sec / 60)).padStart(2,"0");</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const s = String(sec % 60).padStart(2,"0");</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>return `${m}:${s}`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>function buildCategoryOptions() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const cats = Array.from(new Set(ALL_TOPICS.map(t =&gt; t.category))).sort();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>categoryEl.innerHTML = `&lt;option value="all"&gt;All&lt;/option&gt;` + cats.map(c =&gt; `&lt;option value="${c}"&gt;${c}&lt;/option&gt;`).join("");</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>function applyFilters() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const diff = difficultyEl.value;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const cat = categoryEl.value;</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>FILTERED = ALL_TOPICS.filter(t =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const okDiff = (diff === "all") || (t.difficulty === diff);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const okCat = (cat === "all") || (t.category === cat);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>return okDiff &amp;&amp; okCat;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>});</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>if (FILTERED.length === 0) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>FILTERED = [{ text: "No topics match your filters. Change filters or add topics.", difficulty: "easy", category: "system" }];</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>current = Math.min(current, FILTERED.length - 1);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>render();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>renderFeed();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>function render() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>currentIndexEl.textContent = (current + 1);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>totalCountEl.textContent = FILTERED.length;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>function renderFeed() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>feedEl.innerHTML = "";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>FILTERED.forEach((t, idx) =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const card = document.createElement("div");</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>card.className = "card";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>card.dataset.idx = idx;</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>card.innerHTML = `</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="meta"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;span class="tag accent"&gt;${t.difficulty}&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;span class="tag"&gt;${t.category}&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>${idx === current ? `&lt;span class="tag"&gt;</span><span class="s3">▶</span><span class="s1"> current&lt;/span&gt;` : ``}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;p class="topic"&gt;${escapeHtml(t.text)}&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>`;</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>card.addEventListener("click", () =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>current = idx;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>render();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>renderFeed();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// Scroll card into view nicely</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>card.scrollIntoView({ behavior: "smooth", block: "center" });</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>});</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>feedEl.appendChild(card);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>});</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// Highlight current card by scrolling to it once (light touch)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const currentCard = feedEl.querySelector(`[data-idx="${current}"]`);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>if (currentCard) currentCard.scrollIntoView({ behavior: "smooth", block: "center" });</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>function escapeHtml(str) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>return str.replace(/[&amp;&lt;&gt;"']/g, (m) =&gt; ({</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>"&amp;":"&amp;amp;","&lt;":"&amp;lt;","&gt;":"&amp;gt;",'"':"&amp;quot;","'":"&amp;#39;"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}[m]));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>function nextTopic() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>current = (current + 1) % FILTERED.length;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>render(); renderFeed();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>function prevTopic() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>current = (current - 1 + FILTERED.length) % FILTERED.length;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>render(); renderFeed();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>function shuffle() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// Fisher-Yates</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>for (let i = ALL_TOPICS.length - 1; i &gt; 0; i--) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const j = Math.floor(Math.random() * (i + 1));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>[ALL_TOPICS[i], ALL_TOPICS[j]] = [ALL_TOPICS[j], ALL_TOPICS[i]];</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>applyFilters();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>function stopTimer() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>if (timerId) clearInterval(timerId);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>timerId = null;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>remaining = 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>timerReadout.textContent = "00:00";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>btnTimer.textContent = "Start Timer";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>function startTimer() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>stopTimer();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>remaining = Math.max(1, parseInt(timerSecEl.value || "60", 10));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>timerReadout.textContent = formatMMSS(remaining);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>btnTimer.textContent = "Stop Timer";</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>timerId = setInterval(() =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>remaining -= 1;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>timerReadout.textContent = formatMMSS(Math.max(0, remaining));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>if (remaining &lt;= 0) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>stopTimer();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// small nudge to move on</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>nextTopic();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}, 1000);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>function toggleAutoAdvance() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>if (autoId) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>clearInterval(autoId);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>autoId = null;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>btnAuto.textContent = "Auto-advance: Off";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>return;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const intervalSec = Math.max(10, parseInt(timerSecEl.value || "60", 10));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>btnAuto.textContent = `Auto-advance: On (${intervalSec}s)`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>autoId = setInterval(() =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>nextTopic();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}, intervalSec * 1000);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>// ---------- Wire up controls ----------</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>document.getElementById("btnNext").addEventListener("click", nextTopic);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>document.getElementById("btnPrev").addEventListener("click", prevTopic);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>document.getElementById("btnShuffle").addEventListener("click", shuffle);</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>difficultyEl.addEventListener("change", applyFilters);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>categoryEl.addEventListener("change", applyFilters);</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>btnTimer.addEventListener("click", () =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>if (timerId) stopTimer();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>else startTimer();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>});</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>btnAuto.addEventListener("click", toggleAutoAdvance);</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>// Save custom topics</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const topicInput = document.getElementById("topicInput");</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const saveStatus = document.getElementById("saveStatus");</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>document.getElementById("btnSaveTopics").addEventListener("click", () =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const lines = topicInput.value.split("\n");</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const parsed = parseLinesToTopics(lines);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>if (!parsed.length) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>saveStatus.textContent = "Please paste at least 1 topic.";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>return;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>ALL_TOPICS = parsed;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>saveTopics(ALL_TOPICS);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>buildCategoryOptions();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>applyFilters();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>saveStatus.textContent = `Saved ${ALL_TOPICS.length} topics locally on this device.`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>});</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>document.getElementById("btnReset").addEventListener("click", () =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>localStorage.removeItem(STORAGE_KEY);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>ALL_TOPICS = DEFAULT_TOPICS.slice();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>topicInput.value = "";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>saveStatus.textContent = "Reset to default topics.";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>buildCategoryOptions();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>applyFilters();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>});</span></p>
+<p class="p1"><span class="s1"><br>
+</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>// ---------- Init ----------</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>buildCategoryOptions();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>applyFilters();</span></p>
+<p class="p1"><span class="s1">&lt;/script&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/body&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/html&gt;</span></p>
+</body>
+</html>
